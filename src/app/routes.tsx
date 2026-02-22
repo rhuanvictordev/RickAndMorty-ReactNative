@@ -1,16 +1,18 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Home from "../app/pages/home";
-import Episodes from "./pages/episodes";
+import HomePage from "../app/pages/Home";
+import HelpPage from "./pages/Help";
+import ListCharacterPage from "./pages/listCharacter";
+import ListEpisodePage from "./pages/listEpisode";
 
-const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function Routes(){
     return(
         <Drawer.Navigator>
-            <Drawer.Screen name="Personagens" component={Home} />
-            <Drawer.Screen name="Episódios" component={Episodes} />
+            <Drawer.Screen name="Início" component={HomePage} />
+            <Drawer.Screen name="Episódios" component={ListEpisodePage} />
+            <Drawer.Screen name="Personagens" component={ListCharacterPage} />
+            <Drawer.Screen name="Ajuda" component={HelpPage} />
         </Drawer.Navigator>
     )
 }

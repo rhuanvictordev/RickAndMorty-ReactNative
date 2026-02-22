@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FlatList, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { api } from "../../../services/api";
 
-export default function Episodes() {
+export default function ListEpisodePage() {
 
 type Episode = {
   id: number;
@@ -39,6 +39,7 @@ return (
     <FlatList
       style={{ flex: 1, marginTop: 14, width:"90%"}}
       data={episodes}
+      showsVerticalScrollIndicator={false}
       keyExtractor={(item) => String(item.id)}
       renderItem=
       {({ item }) => 
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center",
     marginBottom:50,
+    paddingBottom:12
   },
   box:{
     padding:10,

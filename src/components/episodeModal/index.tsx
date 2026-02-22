@@ -1,4 +1,5 @@
-import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type Episode = {
   id: number;
@@ -14,88 +15,100 @@ type Props = {
 };
 
 
-export default function EpisodeModal({episode, handleClose}:Props){
+export default function EpisodeModal({ episode, handleClose }: Props) {
+  const navigation = useNavigation();
 
-    function printar(){
-        console.log(episode.characters);
-    }
+  function goDetails() {
+    alert("indo para detalhes")
+  }
 
-    return(
-        <View style={styles.container}>
-            <Text style={styles.boxTitle}>{episode.name}</Text>
-            <Text style={styles.innerBox}>{episode.air_date}</Text>
-            <Text style={styles.boxText}>EP: {episode.episode}</Text>
-            
-            <Pressable onPress={printar}>
-                <Text style={styles.boxTitle}>Personagens</Text>
-            </Pressable>
-            
-            <View style={{height:"100%"}}>
-                <FlatList
-                style={{ flex: 1, marginTop: 14,}}
-                data={episode.characters}
-                keyExtractor={(item) => item}
-                renderItem =
-                {
-                ({ item }) => (
-                    <View>
-                        <Text style={styles.boxText}>{item}</Text>
-                    </View>
-                )
-                }
-                
-            />
-            </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.box}>
 
-            <TouchableOpacity onPress={handleClose} activeOpacity={0.7}>
-                <Text style={styles.button}>Voltar</Text>
-            </TouchableOpacity>
+        <Text style={styles.title}>Detalhes do Episódio</Text>
+
+        <View style={styles.textBox}>
+          <Text style={styles.textLabel}>
+            Nome: <Text style={styles.text}>{episode.name}</Text>
+          </Text>
+
+          <Text style={styles.textLabel}>
+            Data: <Text style={styles.text}>{episode.air_date}</Text>
+          </Text>
+
+          <Text style={styles.textLabel}>
+            Personagens: <Text style={styles.text}>{episode.characters.length}</Text>
+          </Text>
         </View>
-        
-    )
+
+        <View style={styles.buttonBox}>
+          <TouchableOpacity
+            onPress={handleClose}
+            activeOpacity={0.7}
+            style={[styles.button, { backgroundColor: "#485453" }]}
+          >
+            <Text style={styles.buttonText}>Voltar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={goDetails}
+            activeOpacity={0.7}
+            style={[styles.button, { backgroundColor: "#299b93" }]}
+          >
+            <Text style={styles.buttonText}>Mais Detalhes</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"rgba(0, 0, 0, 0.79)",
-        marginTop:60,
-        marginBottom:60,
-        marginLeft:10,
-        marginRight:10
+        backgroundColor:"#00000073",
+        alignItems:"center",
+        justifyContent:"center"
     },
-    boxTitle:{
-        marginTop:10,
-        textAlign:"center",
-        width:"95%",
-        backgroundColor:"#397489",
-        color:"black",
-        fontSize:18,
-        fontWeight:"bold",
-        padding:10,
+    box:{
+        padding:30,
+        backgroundColor:"white",
         marginLeft:10,
-        marginRight:10
+        marginRight:10,
+        borderRadius:8,
     },
-    boxText:{
-        color:"white",
-        fontSize:16,
-        fontWeight:"bold",
+    textBox:{
         textAlign:"left",
-        paddingLeft:10
+        marginBottom:10
     },
-    innerBox:{
-        color:"white",
-        fontSize:18,
+    title:{
         textAlign:"center",
-
+        marginBottom:10,
+        fontWeight:"bold",
+        fontSize:20
+    },
+    text:{
+        fontWeight:"regular"
+    },
+    textLabel:{
+        fontWeight:"bold"
+    },
+    buttonBox:{
+        width:"80%",
+        flexDirection:"row"
     },
     button:{
-        marginTop:"100%",
-        padding:8,
-        color:"white",
-        fontWeight:"bold",
-        fontSize:20,
-        backgroundColor:"#1d506b",
-        textAlign:"center"
+        margin:5,
+        width:"50%",
+        alignItems:"center",
+        alignSelf:"center",
+        padding:10,
+        backgroundColor:"#199aad"
+    },
+    buttonText:{
+        color:"#FFF",
+        fontWeight:"bold"
     }
 })

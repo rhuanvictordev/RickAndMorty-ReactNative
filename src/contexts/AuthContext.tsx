@@ -1,22 +1,20 @@
 import React, { createContext, ReactNode, useState } from "react";
 import { Alert } from "react-native";
 
-interface User {
+type User = {
   id: number;
   nome: string;
   email: string;
   token: string;
 }
 
-interface AuthContextType {
+type AuthContextType = {
   user: User | null;
-  login: (userData: User) => void;
+  login: (data: User) => void;
   logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextType>(
-  {} as AuthContextType
-);
+export const AuthContext = createContext<AuthContextType>( {} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -24,7 +22,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   function login(usuario: User) {
     if (user == null){
       setUser(usuario);
-      Alert.alert("Usuário Logado");
+      //Alert.alert("Usuário Logado");
     }else{
       Alert.alert("Usuário já está Logado");
     }
@@ -32,10 +30,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   function logout() {
     if (user == null){
-      Alert.alert("Usuário já está deslogado");
+      Alert.alert("Não existe usuário Logado");
     }else{
       setUser(null);
-      Alert.alert("Usuário Deslogado");
+      //Alert.alert("Usuário Deslogado");
     }
   }
 

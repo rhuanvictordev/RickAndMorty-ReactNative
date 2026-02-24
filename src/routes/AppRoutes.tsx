@@ -1,8 +1,8 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import HelpPage from "./pages/Help";
-import ListCharacterPage from "./pages/listCharacter";
-import ListEpisodePage from "./pages/listEpisode";
-import LogadoPage from './pages/PageModel';
+import HelpPage from '../app/pages/Help';
+import ListCharacterPage from '../app/pages/listCharacter';
+import ListEpisodePage from '../app/pages/listEpisode';
+import LogadoPage from '../app/pages/PageModel';
 
 const Drawer = createDrawerNavigator();
 
@@ -13,7 +13,7 @@ export default function AppRoutes(){
             <Drawer.Screen name="Episódios" component={ListEpisodePage} />
             <Drawer.Screen name="Personagens" component={ListCharacterPage} />
             <Drawer.Screen name="Ajuda" component={HelpPage} />
-            <Drawer.Screen name="Dados logados" component={LogadoPage} />
+            <Drawer.Screen name="Informações" component={LogadoPage} />
         </Drawer.Navigator>
     )
 }

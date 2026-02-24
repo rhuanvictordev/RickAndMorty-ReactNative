@@ -1,28 +1,23 @@
 import { AuthContext } from "@/src/contexts/AuthContext";
 import { apiLocal } from "@/src/services/api";
+import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
 import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-type Login = {
-  id: string;
-  nome: string;
-  email: string;
-  token: string;
-}
+export default function LoginPage(){
 
-export default function Login(){
-
-  const [email, setEmail] = useState("teste@email.com");
-  const [senha, setSenha] = useState("12345");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login, logout, user } = useContext(AuthContext);
+  const navigator = useNavigation();
 
   async function logar(){
-    if (email == "" || senha == ""){
+    if (email == "" || password == ""){
       Alert.alert("Aviso","Informe o email e a senha corretamente!");
       return;
     }
     try {
-      const response = await apiLocal.post("/login", {email: email, senha: senha});
+      const response = await apiLocal.post("/login", {email: email, password: password});
       console.log("LoginResponse:", response.data);
       login(response.data);
     } 
@@ -36,9 +31,13 @@ export default function Login(){
     }
   }
 
+  function createAccount(){
+    navigator.navigate("Register" as never);
+  }
+
   return(
     <View style={styles.container}>
-        <Image source={require('../../../../assets/images/logo.png')} style={{width:200, height:200, borderRadius:20}}/>
+        <Image source={require('../../../../assets/images/logo.png')} style={{width:60, height:60, borderRadius:10}}/>
         <Text style={styles.title}>Login</Text>
         <View style={styles.inputArea}>
             <View style={styles.inputBox}>
@@ -48,7 +47,7 @@ export default function Login(){
 
             <View style={styles.inputBox}>
               <Text style={styles.text}>Senha</Text>
-              <TextInput style={styles.input} maxLength={32} value={senha} onChangeText={(value)=>{setSenha(value)}}></TextInput>
+              <TextInput style={styles.input} maxLength={32} value={password} onChangeText={(value)=>{setPassword(value)}}></TextInput>
             </View>
         </View>
         <View style={styles.buttonArea}>
@@ -56,11 +55,13 @@ export default function Login(){
                 <Text style={styles.button}>Entrar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={logout}>
-                <Text style={[styles.button, {backgroundColor:"#707070"}]}>Sair</Text>
+            <TouchableOpacity style={[styles.button, {backgroundColor:"#3adb5544"}]} onPress={createAccount}>
+                <Text>Criar conta</Text>
             </TouchableOpacity>
-            <Text>Logado: {user ? "Sim" : "Não"}</Text>
         </View>
+        
+        <Text>Logado: {user ? "Sim" : "Não"}</Text>
+        
     </View>
   )
 }
@@ -70,23 +71,23 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems:"center",
     justifyContent:"center",
-    backgroundColor:"#6cc0d4"
+    backgroundColor:"#6cc0d4",
   },
   title:{
-    fontSize:26,
-    marginTop:30,
-    marginBottom:40
+    fontSize:22,
+    marginTop:10,
+    marginBottom:0
   },
   text:{
     fontWeight:"bold",
     textAlign:"left",
-    fontSize:18
+    fontSize:16
   },
   inputArea:{
     width:"90%",
   },
   inputBox:{
-    marginBottom:30
+    marginBottom:20
   },
   input:{
     backgroundColor:"#ffffff",
@@ -99,10 +100,13 @@ const styles = StyleSheet.create({
     width:"100%",
     height:40,
     textAlign:"center",
+    alignItems:"center",
     padding:10,
     backgroundColor:"#144257",
     color:"white",
-    marginBottom:10
+    marginBottom:10,
+    borderWidth:1,
+    borderRadius:10
   },
   buttonArea:{
     width:"90%",

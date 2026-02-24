@@ -2,7 +2,7 @@ import { CharacterModal } from "@/src/components/characterModal";
 import { useEffect, useState } from "react";
 import { FlatList, Modal, Pressable, StyleSheet, View } from "react-native";
 import Person from "../../../components/character/Character";
-import { api } from "../../../services/api";
+import { apiRickAndMorty } from "../../../services/api";
 
 export default function ListCharacterPage() {
 
@@ -26,7 +26,7 @@ const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
 
   async function buscarPersonagens() {
   try {
-    const response = await api.get("/character");
+    const response = await apiRickAndMorty.get("/character");
     setPersonagens(response.data.results);
   } catch (error) {
     console.log(error);

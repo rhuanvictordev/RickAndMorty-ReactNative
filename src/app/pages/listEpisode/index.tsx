@@ -1,7 +1,7 @@
 import EpisodeModal from "@/src/components/episodeModal";
 import { useEffect, useState } from "react";
 import { FlatList, Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import { api } from "../../../services/api";
+import { apiRickAndMorty } from "../../../services/api";
 
 export default function ListEpisodePage() {
 
@@ -27,7 +27,7 @@ const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
 
   async function buscarEpisodios(){
   try {
-      const response = await api.get("/episode");
+      const response = await apiRickAndMorty.get("/episode");
       setEpisodes(response.data.results);
     } catch (error) {
       console.log(error);

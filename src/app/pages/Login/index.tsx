@@ -31,6 +31,11 @@ export default function LoginPage(){
     }
   }
 
+
+  function chamarApiGoogle(){
+    Alert.alert("Aviso", "Logando com o google")
+  }
+
   function createAccount(){
     navigator.navigate("Register" as never);
   }
@@ -42,7 +47,7 @@ export default function LoginPage(){
         <View style={styles.inputArea}>
             <View style={styles.inputBox}>
               <Text style={styles.text}>E-mail</Text>
-              <TextInput style={styles.input} maxLength={32} value={email} onChangeText={(value)=>{setEmail(value)}}></TextInput>
+              <TextInput style={styles.input} maxLength={64} value={email} onChangeText={(value)=>{setEmail(value)}}></TextInput>
             </View>
 
             <View style={styles.inputBox}>
@@ -51,8 +56,13 @@ export default function LoginPage(){
             </View>
         </View>
         <View style={styles.buttonArea}>
-            <TouchableOpacity onPress={logar}>
-                <Text style={styles.button}>Entrar</Text>
+            
+            <TouchableOpacity onPress={chamarApiGoogle} style={[styles.button, {backgroundColor:"#002fff"}]}>
+                <Text style={styles.buttonText}><Image source={require("../../../../assets/images/google.png")} style={{width:30, height:30, borderRadius:1}}/>     Entrar com o Google</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={logar} style={styles.button}>
+                <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={[styles.button, {backgroundColor:"#3adb5544"}]} onPress={createAccount}>
@@ -98,9 +108,10 @@ const styles = StyleSheet.create({
   },
   button:{
     width:"100%",
-    height:40,
+    height:60,
     textAlign:"center",
     alignItems:"center",
+    justifyContent:"center",
     padding:10,
     backgroundColor:"#144257",
     color:"white",
@@ -110,5 +121,11 @@ const styles = StyleSheet.create({
   },
   buttonArea:{
     width:"90%",
+  },
+  buttonText:{
+    color:"#FFF",
+    flexDirection:"row",
+    marginLeft:10,
+    justifyContent:"space-between"
   }
 })
